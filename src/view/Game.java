@@ -76,6 +76,9 @@ public class Game extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        CellController cellController = CellController.getInstance();
+
 
     }
 }
