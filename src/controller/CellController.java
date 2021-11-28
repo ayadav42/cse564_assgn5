@@ -1,5 +1,9 @@
 package controller;
 
+import model.Blackboard;
+import model.CellStatus;
+import view.Cell;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +18,27 @@ public class CellController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+    }
+
+    public CellStatus getCellStatus(Cell cell) { //getConditionofCell
+
+        int aliveNbrs = Blackboard.getInstance().getNumberOfAliveNbrs(cell);
+        boolean cellState = Blackboard.getInstance().getCellState(cell);
+        CellStatus status = CellStatus.NOTHING;
+
+        if (cellState && aliveNbrs <= 1) {
+            status = CellStatus.ISOLATED;
+        } else if (cellState && aliveNbrs >= 4) {
+            status = CellStatus.OVERPOPULATED;
+        } else if (cellState) {
+            // && (aliveNbrs == 2 || aliveNbrs == 3)
+            status = CellStatus.WILL_SURVIVE;
+        } else if (aliveNbrs == 3) {
+            status = CellStatus.SPAWNED;
+        }
+
+        return status;
 
     }
 
