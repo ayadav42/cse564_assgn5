@@ -79,6 +79,16 @@ public class Game extends JFrame implements ActionListener {
         String action = e.getActionCommand();
         CellController cellController = CellController.getInstance();
 
+	switch (action) {
+            case "Start":
+                cellController.startIterating();
+                startBtn.setEnabled(false);
+                pauseBtn.setEnabled(true);
+                break;
+		
+	    default:
+                break;
+	}
 
     }
 }
