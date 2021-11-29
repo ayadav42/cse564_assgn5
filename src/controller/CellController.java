@@ -42,4 +42,33 @@ public class CellController implements ActionListener {
 
     }
 
+
+    public void updateCellState(boolean[][] state, Cell cell) {
+
+        boolean[][] oldState = Blackboard.getInstance().getState();
+        CellStatus status = getCellStatus(cell);
+        boolean newCellState = false;
+
+        switch (status) {
+            case ISOLATED:
+                newCellState = false;
+                break; //cell dies
+            case OVERPOPULATED:
+                newCellState = false;
+                break; //cell dies
+            case WILL_SURVIVE:
+                newCellState = true;
+                break;
+            case SPAWNED:
+                newCellState = true;
+                break;
+            case NOTHING:
+                newCellState = oldState[cell.x][cell.y];
+                break;
+        }
+
+        state[cell.x][cell.y] = newCellState;
+        cell.updateState(newCellState);
+    }
+
 }
