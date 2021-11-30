@@ -21,6 +21,19 @@ public class CellController implements ActionListener {
 
     }
 
+    public void startIterating() {
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                incrementState();
+            }
+        };
+        this.timer = new Timer();
+        timer.schedule(timerTask, 0, 500);
+
+    }
+
     public CellStatus getCellStatus(Cell cell) { //getConditionofCell
 
         int aliveNbrs = Blackboard.getInstance().getNumberOfAliveNbrs(cell);
