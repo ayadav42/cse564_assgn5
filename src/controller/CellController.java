@@ -84,4 +84,9 @@ public class CellController implements ActionListener {
         cell.updateState(newCellState);
     }
 
+	public void pauseIteration() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
