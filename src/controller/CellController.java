@@ -3,6 +3,7 @@ package controller;
 import model.Blackboard;
 import model.CellStatus;
 import view.Cell;
+import view.Game;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -89,4 +90,18 @@ public class CellController implements ActionListener {
 		
 	}
 
+    public void incrementState() {
+
+        boolean[][] newState = new boolean[Game.ROWS][Game.CELLS_PER_ROW];
+        Cell[][] cells = Blackboard.getInstance().getCells();
+
+        for (Cell[] rowOfCells : cells) {
+            for (Cell cell : rowOfCells) {
+                updateCellState(newState, cell);
+            }
+        }
+
+        Blackboard.getInstance().setState(newState);
+
+    }
 }
