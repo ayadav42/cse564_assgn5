@@ -7,10 +7,13 @@ import view.Game;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CellController implements ActionListener {
 
     private static CellController _instance;
+    private Timer timer;
 
     public static CellController getInstance() {
         if (_instance == null) _instance = new CellController();
@@ -19,7 +22,8 @@ public class CellController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        Cell cell = (Cell) e.getSource();
+        Blackboard.getInstance().toggleCellState(cell);
     }
 
     public void startIterating() {
@@ -35,6 +39,11 @@ public class CellController implements ActionListener {
 
     }
 
+    public void reset(){
+        pauseIteration();
+        Blackboard.getInstance().resetState();
+    }
+
     public CellStatus getCellStatus(Cell cell) { //getConditionofCell
 
         int aliveNbrs = Blackboard.getInstance().getNumberOfAliveNbrs(cell);
@@ -45,7 +54,7 @@ public class CellController implements ActionListener {
             status = CellStatus.ISOLATED;
         } else if (cellState && aliveNbrs >= 4) {
             status = CellStatus.OVERPOPULATED;
-        } else if (cellState) {
+        } else if (cellState && (aliveNbrs == 2 || aliveNbrs == 3)) {
             // && (aliveNbrs == 2 || aliveNbrs == 3)
             status = CellStatus.WILL_SURVIVE;
         } else if (aliveNbrs == 3) {
@@ -86,9 +95,10 @@ public class CellController implements ActionListener {
     }
 
 	public void pauseIteration() {
-		// TODO Auto-generated method stub
-		
-	}
+        if(this.timer != null){
+            this.timer.cancel();
+        }
+    }
 
     public void incrementState() {
 

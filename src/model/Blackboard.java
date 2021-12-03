@@ -1,5 +1,6 @@
 package model;
 
+import controller.CellController;
 import view.Cell;
 import view.Game;
 
@@ -16,7 +17,7 @@ public class Blackboard {
         this.cells = new Cell[Game.ROWS][Game.CELLS_PER_ROW];
         for (int i = 0; i < this.cells.length; i++) {
             for (int j = 0; j < this.cells.length; j++) {
-                this.cells[i][j] = new Cell(i, j);
+                this.cells[i][j] = new Cell(i, j, CellController.getInstance());
             }
         }
 
@@ -36,7 +37,7 @@ public class Blackboard {
     public void toggleCellState(Cell cell) {
 
         this.state[cell.x][cell.y] = !this.state[cell.x][cell.y];
-//        cell.updateState(this.state[cell.x][cell.y]);
+        cell.updateState(this.state[cell.x][cell.y]);
 
     }
 
@@ -87,4 +88,15 @@ public class Blackboard {
         return this.state[cell.x][cell.y];
     }
 
+    public void resetState() {
+
+        //iterate over all cells and set their state to false
+        this.state = new boolean[cells.length][cells[0].length];
+        for (int i = 0; i < state.length; i++) {
+            for (int j = 0; j < state[0].length; j++) {
+                cells[i][j].updateState(false);
+            }
+        }
+
+    }
 }

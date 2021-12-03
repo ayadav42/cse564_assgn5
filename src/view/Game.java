@@ -90,12 +90,16 @@ public class Game extends JFrame implements ActionListener {
                 startBtn.setEnabled(true);
                 pauseBtn.setEnabled(false);
                 break;
-        case "Increment":
-            cellController.pauseIteration();
-            cellController.incrementState();
+            case "Increment":
+                cellController.pauseIteration();
+                cellController.incrementState();
             break;
-		
-	    default:
+            case "Reset":
+                cellController.reset();
+                startBtn.setEnabled(true);
+                pauseBtn.setEnabled(true);
+            break;
+            default:
                 break;
 	}
 

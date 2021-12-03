@@ -23,4 +23,12 @@ public class Cell extends JButton {
             setIcon(null);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }
