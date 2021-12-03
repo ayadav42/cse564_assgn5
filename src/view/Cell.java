@@ -15,12 +15,20 @@ public class Cell extends JButton {
 		addActionListener(actionListener);
     }
 
-
     public void updateState(boolean state) {
         if (state) {
             setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(this.getClass().getResource("yellow_icon.jpg"))));
-        } else {
+        } 
+        else {
             setIcon(null);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
